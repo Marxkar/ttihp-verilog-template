@@ -1,27 +1,25 @@
-/*
- * Copyright (c) 2024 Your Name
- * SPDX-License-Identifier: Apache-2.0
- */
+module dff(input clock,reset,d,output q,qb);
+wire [4:0]a;
+assign a[0]=~reset;
+assign a[1]=~(a[0]&d&a[2]);
+assign a[2]=~(a[1]&clock&a[3]);
+assign a[3]=~(a[0]&clock&a[4]);
+assign a[4]=~(a[1]&a[3]);
+assign qb=~(a[0]&a[2]&q);
+assign q=~(a[3]&qb);
+endmodule
 
-`default_nettype none
-
-module tt_um_example (
-    input  wire [7:0] ui_in,    // Dedicated inputs
-    output wire [7:0] uo_out,   // Dedicated outputs
-    input  wire [7:0] uio_in,   // IOs: Input path
-    output wire [7:0] uio_out,  // IOs: Output path
-    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
-    input  wire       ena,      // always 1 when the design is powered, so you can ignore it
-    input  wire       clk,      // clock
-    input  wire       rst_n     // reset_n - low to reset
-);
-
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
-
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
-
+module seqdetc(input clock,reset,input_bit,output reg output_indicator,wire [2:0]present_state);
+wire [2:0]qb;
+wire[2:0]d;
+assign d[2]=(~present_state[2]&present_state[1]&present_state[0]&~input_bit);
+assign d[1]=(~present_state[2]&~present_state[1]&present_state[0]&~input_bit)
+            |(~present_state[2]&present_state[1]&~present_state[0]&input_bit);
+assign d[0]=input_bit&(~present_state[2]|(present_state[2]&~present_state[1]&~present_state[0])) 
+            |present_state[2]&~present_state[1]&present_state[0]&~input_bit;
+dff d0(clock,reset,d[2],present_state[2],qb[2]);
+dff d1(clock,reset,d[1],present_state[1],qb[1]);
+dff d2(clock,reset,d[0],present_state[0],qb[0]);
+always @(posedge clock)
+output_indicator<=present_state[2]&~present_state[1]&~present_state[0]&input_bit;
 endmodule

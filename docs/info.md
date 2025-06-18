@@ -8,13 +8,10 @@ You can also include images in this folder and reference them in the markdown. E
 -->
 
 ## How it works
-
-Explain how your project works
+This sequence detector uses d flip flops to detect a sequence 10101
 
 ## How to test
 
-Explain how to use your project
+give stream of bits and those bits will be sensed by d flip flop on rising edge of clock if above seuence occurs output indicator will turn high
 
-## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any

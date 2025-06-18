@@ -1,6 +1,6 @@
 # Tiny Tapeout project information
 project:
-  title:        ""       "sequence detector"
+  title:        ""      "sequence detector"
   author:       ""      "Marxkar"
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  ""     " circuit to detect sequence 10101"

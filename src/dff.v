@@ -1,10 +1,16 @@
-module dff(input clk,rst_n,d,output q,qb);
-wire [4:0]a;
-assign a[0]=rst_n;
-assign a[1]=~(a[0]&d&a[2]);
-assign a[2]=~(a[1]&clk&a[3]);
-assign a[3]=~(a[0]&clk&a[4]);
-assign a[4]=~(a[1]&a[3]);
-assign qb=~(a[0]&a[2]&q);
-assign q=~(a[3]&qb);
+module dff(
+    input clk,
+    input rst_n,
+    input d,
+    output reg q,
+    output qb
+);
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            q <= 1'b0;
+        else
+            q <= d;
+    end
+
+    assign qb = ~q;
 endmodule

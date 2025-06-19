@@ -1,4 +1,4 @@
-module tt_um_marxkar_seqdetc(input clock,reset,input_bit,output reg output_indicator,wire [2:0]present_state);
+module tt_um_marxkar_seqdetc(input clock,reset,input_bit,output reg output_indicator,output wire [2:0]present_state);
 wire [2:0]qb;
 wire[2:0]d;
 assign d[2]=(~present_state[2]&present_state[1]&present_state[0]&~input_bit);

@@ -1,6 +1,6 @@
-module dff(input clk,reset,d,output q,qb);
+module dff(input clk,rst_n,d,output q,qb);
 wire [4:0]a;
-assign a[0]=~reset;
+assign a[0]=rst_n;
 assign a[1]=~(a[0]&d&a[2]);
 assign a[2]=~(a[1]&clk&a[3]);
 assign a[3]=~(a[0]&clk&a[4]);

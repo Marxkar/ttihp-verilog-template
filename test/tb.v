@@ -4,7 +4,7 @@ reg clk=0;
 reg input_bit;
 wire output_indicator;
 wire [2:0]present_state;
-seqdetc uut(clk,reset,input_bit,output_indicator,present_state);
+  seqdetc uut(clk,reset,input_bit,ena,output_indicator,present_state);
 always #5 clk=~clk;
 initial begin
 reset=1;#7;

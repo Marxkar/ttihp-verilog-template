@@ -4,7 +4,7 @@ reg clk=0;
 reg input_bit;
 wire output_indicator;
 wire [2:0]present_state;
-  seqdetc uut(clk,rst_n,input_bit,ena,output_indicator,present_state);
+  tt_um_marxkar_seqdetc uut(clk,rst_n,input_bit,ena,output_indicator,present_state);
 always #5 clk=~clk;
 initial begin
 rst_n=0;#7;
